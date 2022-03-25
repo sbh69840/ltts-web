@@ -1,38 +1,35 @@
 function sendJSON(buttonType) {
-    console.log(buttonType)
     let url = "http://localhost:8080/complete"
 
     // var data = JSON.stringify(sendContext(buttonType, 12))
     var data = sendContext(buttonType, 12)
-    let processedText = getSplitTextFromEditor(4)
-    
+    let processedText = getSplitTextFromEditor(100)
+    var x = document.getElementById("editor1-container");
+    var y = x.contentWindow || x.contentDocument.document || x.contentDocument;
+    y.document.open();
     processedText.split("\n###\n").forEach(section => {
+        // if(section===""){return}
         let xhr = new XMLHttpRequest()
-        xhr.open("POST", url, true)
+        // xhr.timeout = 10000
+        xhr.open("POST", url, false)
         xhr.setRequestHeader("Content-Type", "application/json")
-
-        var x = document.getElementById("editor1-container");
-        var y = x.contentWindow || x.contentDocument.document || x.contentDocument;
-        y.document.open();
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                // console.log("Fetching ...")
-                let response = xhr.responseText
-                console.log(response)
-                let result = JSON.parse(response)["output"][0]["generated_text"].split("#")
-                // write into result iframe
-                
-                y.document.write(result+"<br>");
-                
-                // remove first text and summary and append new result with its summary
-                data["context"] = data["context"].split("\n###\n").slice(1,).join("\n###\n") +"[Text]: "+section+"\n"+"[Summary]: " + result + "\n###\n"
-                console.log(data["context"])
-            }else if(xhr.status!=200){
-                alert("Server didn't respond!")
-                console.log("Status code: "+xhr.status)
-            }
+        data["context"]+="[Text]: "+section+"\n"+"[Summary]: "
+        console.log(data["context"],"laude")
+        if(section!==""){
+            xhr.send(JSON.stringify(data));
         }
-        xhr.send(JSON.stringify(data));
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            let response = xhr.responseText
+            let result = JSON.parse(response)["output"][0]["generated_text"].split("#")
+            // write into result iframe
+            y.document.write(result+"<br>");
+            // remove first text and summary and append new result with its summary
+            data["context"] = data["context"].split("\n###\n").slice(1,).join("\n###\n") + result + "\n###\n"
+            console.log(data["context"])
+        }else if(xhr.status!=200){
+            
+            console.log("Status code: "+xhr.status)
+        }
     });
     y.document.close();
 }
@@ -42,11 +39,12 @@ function sendContext(type, length) {
     var text = document.getElementById("editor-container").textContent;
     let summaryType = {
         "Short": {
-            "context": "[Text]: Talking about her Australian Open triumph, world number one Naomi Osaka revealed she called her mother after giving interviews following her victory but she didn't even congratulate her. \"She just yelled at me to go to sleep. So I felt really loved,\" the 21-year-old added. Osaka is the first Asian tennis player to top the men's or women's rankings.\n[Summary]: Called mom after Aus Open win, she yelled at me to go sleep: Osaka\n###\n[Text]: The full cost of damage in Newton Stewart, one of the areas worst affected, is still being assessed. Repair work is ongoing in Hawick and many roads in Peeblesshire remain badly affected by standing water. Trains on the west coast mainline face disruption due to damage at the Lamington Viaduct. Many businesses and householders were affected by flooding in Newton Stewart after the River Cree overflowed into the town.\n[Summary]:Newton Stewart: Full cost of damage still being assessed\n###\n[Text]: First Minister Nicola Sturgeon visited the area to inspect the damage. The waters breached a retaining wall, flooding many commercial properties on Victoria Street - the main shopping thoroughfare. Jeanette Tate, who owns the Cinnamon Cafe which was badly affected, said she could not fault the multi-agency response once the flood hit.\n[Summary]: Nicola Sturgeon visited Newton Stewart to inspect flood damage\n###\n [Text]: However, she said more preventative work could have been carried out to ensure the retaining wall did not fail. \"It is difficult but I do think there is so much publicity for Dumfries and the Nith - and I totally appreciate that - but it is almost like we're neglected or forgotten,\" she said.\n[Summary]: Nicola Sturgeon said more preventative work could have been carried out to ensure the retaining wall did not fail\n###\n",
-            "temperature": 0.9,
+            "context": "[Text]: Punjab chief minister-designate Bhagwant Mann staked a claim on Saturday to form the next government in the state, while the Punjab police withdrew nearly 400 personnel providing security to 122 former MLAs, including former state cabinet ministers. However, security cover provided on court directions or on the basis of protectees’ threat perceptions will continue. I met the governor, handed over a letter of support from our MLAs, and staked claim… He accepted it and asked me wherever (sic) we wanted to hold the swearing-in ceremony,\" he said. Mann invited the people of the state to the function. Asked about his cabinet, Mann said the council of ministers would take historic decisions that had not been taken so far. Navjot Kaur Sidhu, the wife of Punjab Congress chief Navjot Singh Sidhu, who had a security detail of seven personnel, was also among the politicians whose security was reduced. Explaining the withdrawal of protection, Mann said, \"Police stations are lying vacant. We will seek only police work from the police force. I think the security of the people of Punjab is more important than the security of a few people.\n[Summary]: Bhagwant Mann is going to be Punjab's next CM. 122 MLAs have had their security detail reduced and Navjot Kaur Sidhu is among them.\n###\n",
+            "temperature": 0.8,
             "max_length": 25,
             "end_sequence": "###",
-            "return_full_text": false
+            "return_full_text": false,
+            "id":0
         },
         "Medium": {
             "context": "\n###\n[Original]: ",
