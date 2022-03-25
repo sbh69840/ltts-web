@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<style>
+  html {
+    height: 100%;
+  }
+
+  body {
+    /* height: 100%; */
+    overflow-x: hidden;
+    background-image: linear-gradient(rgb(236, 191, 45), rgb(247, 237, 151));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    color: #333;
+  }
+
+  .wrapper {
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    width: 100%;
+    /* padding: 10pt; */
+    box-shadow: 0px 0px 100px rgba(0, 0, 0, 0.2);
+    word-wrap: break-word;
+  }
+
+  nav {
+    width: 100%;
+    top: 0;
+  }
+
+  object {
+    height: 72px;
+  }
+
+  iframe {
+    border: 0;
+    width: 100%;
+    margin: 10pt;
+    height: 300pt;
+    word-break: break-all;
+  }
+
+  .waves-container {
+    width: 100%;
+  }
+
+  .waves-container-1 {
+    width: 100%;
+    transform: rotateX(-180deg);
+  }
+
+  .waves {
+    position: relative;
+    width: 100%;
+    height: 15vh;
+    margin-bottom: -10px;
+    min-height: 35%;
+    max-height: 100%;
+  }
+
+  .parallax>use {
+    animation: move-forever 5s cubic-bezier(.9, .9, 0.9, .9) infinite;
+  }
+
+  .parallax>use:nth-child(1) {
+    animation-delay: -2s;
+    animation-duration: 7s;
+  }
+
+  .parallax>use:nth-child(2) {
+    animation-delay: -3s;
+    animation-duration: 10s;
+  }
+
+  .parallax>use:nth-child(3) {
+    animation-delay: -4s;
+    animation-duration: 13s;
+  }
+
+  .parallax>use:nth-child(4) {
+    animation-delay: -5s;
+    animation-duration: 20s;
+  }
+
+  @keyframes move-forever {
+    0% {
+      transform: translate3d(-90px, 0, 0);
+    }
+
+    100% {
+      transform: translate3d(85px, 0, 0);
+    }
+  }
+
+  /*Shrinking for mobile*/
+  @media (max-width: 768px) {
+    .waves {
+      height: 40px;
+      min-height: 40px;
+    }
+
+    .content {
+      height: 30vh;
+    }
+
+    h1 {
+      font-size: 24px;
+    }
+  }
+
+  /* button style  */
+  .container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 2%;
+    width: 50%;
+    place-items: center;
+  }
+
+  a {
+    font-family: monospace;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 15px 30px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: box-shadow 0.1s;
+    box-shadow: -5px -5px 15px rgb(255, 246, 120), 5px 5px 15px #5d5e48;
+    text-decoration: none;
+    color: #444;
+  }
+
+  a:hover {
+    transition: box-shadow 0.1s;
+    box-shadow: -1px -1px 5px rgb(255, 246, 120), 1px 1px 5px #5d5e48;
+  }
+
+  a:active {
+    box-shadow: inset 5px 5px 5px -3px rgb(182, 175, 75), inset -1px -1px 5px 3px #a5a759;
+    background-color: rgb(241, 230, 125);
+    color: #000;
+  }
+
+  /* button style end  */
+  /* slider start  */
+  .slider {
+    width: 400px;
+    display: flex;
+    font-family: monospace;
+    margin-top: -30px;
+  }
+
+  .slider .slider-element {
+    border-top: 5px solid rgb(0, 0, 0);
+    position: relative;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .slider label {
+    cursor: pointer;
+    padding-top: 30px;
+  }
+
+  .slider label:before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: 42%;
+    top: 0;
+    margin-top: -11px;
+    background-color: rgb(0, 0, 0);
+    border-radius: 8px;
+  }
+
+  .slider label:after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 0;
+    left: 42%;
+    margin-top: -11px;
+    background: none;
+    border-radius: 50%;
+    transition: 0.2s ease-in-out;
+  }
+
+  .slider :checked+label:after {
+    height: 30px;
+    width: 30px;
+    top: -5px;
+    left: 35%;
+    background: rgb(7, 44, 2);
+    transform: scale(1.2);
+  }
+
+  .slider input[type=radio] {
+    opacity: 0;
+    position: absolute;
+    width: 1;
+    height: 1;
+  }
+
+  .slider input[type=radio]:focus+label {
+    outline: rgba(0, 0, 0, 0.986) auto 3px;
+  }
+
+  /* slider end  */
+</style>
+
+<style>
+  .m-dropdown {
+    margin: 50px auto;
+    width: 300px;
+    display: block;
+  }
+
+  .m-dropdown .e-button {
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    border-radius: 20px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -ms-border-radius: 20px;
+    font-size: 14px;
+    font-size: 1.4rem;
+    line-height: 20px;
+    padding: 8px 40px 8px 15px;
+    z-index: 900;
+    color: #fff;
+    font-weight: 900;
+    position: relative;
+    border: 2px solid transparent;
+    margin-top: 2px;
+    font-family: "Open Sans", sans-serif;
+    z-index: 5;
+    display: block;
+    width: 100px;
+    margin: 0 auto;
+    background: #1b1b1b;
+  }
+
+  .m-dropdown .e-button:hover {
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    color: #669999;
+  }
+
+  .m-dropdown .e-button:hover .e-burger span {
+    background: #669999;
+  }
+
+  .m-dropdown .e-button:after,
+  .m-dropdown .e-button:before {
+    display: block;
+    content: " ";
+    position: absolute;
+    top: 2px;
+    height: 100%;
+    width: 20px;
+    background: #333;
+    z-index: 0;
+  }
+
+  .m-dropdown .e-button:after {
+    left: 100%;
+    margin-left: 2px;
+    border-bottom-left-radius: 10px;
+  }
+
+  .m-dropdown .e-button:before {
+    right: 100%;
+    margin-right: 2px;
+    border-bottom-right-radius: 10px;
+  }
+
+  .m-dropdown .e-button .e-burger {
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    right: 15px;
+    width: 15px;
+    height: 14px;
+    transform-origin: center;
+    z-index: -1;
+  }
+
+  .m-dropdown .e-button .e-burger span {
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -ms-border-radius: 2px;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    display: block;
+    left: 0;
+    transform-origin: center;
+  }
+
+  .m-dropdown .e-button .e-burger span:first-child {
+    top: 0;
+    transform: none;
+  }
+
+  .m-dropdown .e-button .e-burger span:last-child {
+    top: auto;
+    bottom: 0;
+    transform: none;
+  }
+
+  .m-dropdown .e-button .e-burger:after {
+    -webkit-transition: height 0.3s ease-in-out;
+    -moz-transition: height 0.3s ease-in-out;
+    -ms-transition: height 0.3s ease-in-out;
+    -o-transition: height 0.3s ease-in-out;
+    transition: height 0.3s ease-in-out;
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 12px;
+    right: -37px;
+    height: 0;
+    width: 199px;
+    left: auto;
+    z-index: -2;
+    background: #1b1b1b;
+    opacity: 0;
+  }
+
+  .m-dropdown .e-button.open {
+    border-color: transparent;
+    background: #1b1b1b;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    color: #669999;
+  }
+
+  .m-dropdown .e-button.open .e-burger span {
+    background: #669999;
+  }
+
+  .m-dropdown .e-button.open .e-burger span:first-child {
+    opacity: 0;
+  }
+
+  .m-dropdown .e-button.open .e-burger span:nth-child(2) {
+    transform: translateY(-50%) rotate(-45deg);
+  }
+
+  .m-dropdown .e-button.open .e-burger span:nth-child(3) {
+    transform: translateY(-50%) rotate(45deg);
+  }
+
+  .m-dropdown .e-button.open .e-burger span:last-child {
+    opacity: 0;
+  }
+
+  .m-dropdown .e-button.open .e-burger:after {
+    height: 15px;
+    opacity: 1;
+  }
+
+  .m-dropdown .e-list {
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -ms-border-radius: 5px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: #1b1b1b;
+    float: left;
+    overflow: hidden;
+    z-index: 999;
+  }
+
+  .m-dropdown .e-list li {
+    display: block;
+    width: 100%;
+    float: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.01);
+    box-sizing: border-box;
+  }
+
+  .m-dropdown .e-list li:last-child {
+    border: none;
+  }
+
+  .m-dropdown .e-list li a {
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    padding: 15px;
+    float: left;
+    width: 100%;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+    box-sizing: border-box;
+  }
+
+  .m-dropdown .e-list li a:hover {
+    background: #fff;
+    color: #111;
+  }
+</style>
+
+<style>
+  .main-container {
+    display: flex;
+    width: 90%;
+    justify-content: space-around space-evenly;
+  }
+
+  .main-editor-container {
+    width: 100%;
+  }
+
+</style>
+<script src="./API-request.js"> </script>
+<nav>
+  <object data="./Logo-new.svg"> </object>
+</nav>
+
+<body>
+
+  <div class="slider">
+
+    <div class="slider-element">
+      <input type="radio" name="val1" id="short" value="short" checked="true" />
+      <label for="short">Short</label>
+    </div>
+
+    <div class="slider-element">
+      <input type="radio" name="val1" id="medium" value="medium" />
+      <label for="medium">Medium</label>
+    </div>
+
+    <div class="slider-element">
+      <input type="radio" name="val1" id="long" value="long" />
+      <label for="long">Long</label>
+    </div>
+  </div>
+  <!--Waves Container-->
+  <div class="main-container">
+    <div class="main-editor-container">
+      <div class="waves-container">
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+          viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+
+          <defs>
+            <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+          </defs>
+          <g class="parallax">
+            <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+            <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+            <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+            <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+          </g>
+        </svg>
+      </div>
+      <!--Waves end-->
+      <div class="wrapper">
+        <iframe name="editor" class="editor active" id="editor-container"></iframe>
+        <hr>
+        <iframe name="editor1" class="editor1" id="editor1-container"></iframe>
+      </div>
+
+      <div class="waves-container-1">
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+          viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+
+          <defs>
+            <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+          </defs>
+          <g class="parallax">
+            <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+            <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+            <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+            <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <input type="file" id="fileId" hidden="hidden" accept=".docx,.txt,.pdf" />
+    <a id="upload" title="Supported types: docx, txt, pdf"> upload </a>
+    <a id="summary-button" onclick='sendJSON("Summary")'>Summarize</a>
+    <a>Paraphrase</a>
+    <a>Grammar check</a>
+    <a>zero-shot</a>
+  </div>
+
+</body>
+
+
+
+<script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js"
+  integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+<script async defer>
+  editor.document.designMode = "On";
+  function transform(option, argument) {
+    editor.document.execCommand(option, false, argument);
+  }
+  editor1.document.designMode = "On";
+  function transform(option, argument) {
+    editor1.document.execCommand(option, false, argument);
+  }
+</script>
+
+<script src="docxtemplater-latest.js"></script>
+<script src="pizzip.js"></script>
+<script>
+
+  const input = document.getElementById("fileId");
+  const uploadBtn = document.getElementById("upload");
+  const editor = document.getElementById("editor-container");
+  uploadBtn.addEventListener("click", () => {
+    input.click()
+  })
+  input.addEventListener("change", loadFile, false);
+  function loadFile() {
+    var file, fr;
+    if (typeof window.FileReader !== 'function') {
+      alert("The file API isn't supported on this browser yet.");
+      return;
+    }
+
+    if (!input.files) {
+      alert("This browser doesn't seem to support the `files` property of file inputs.");
+    } else if (!input.files[0]) {
+      alert("Please select a file before clicking 'Load'");
+    } else {
+      file = input.files[0];
+      const extension = file.name.split('.').pop()
+      if (extension != "txt" && extension != "docx" && extension != "pdf") {
+        editor.contentDocument.write("Not a supported file format!");
+        return;
+      }
+      if (extension == "txt") {
+        fr = new FileReader();
+        fr.onload = receivedText;
+        fr.readAsText(file);
+      }
+      else if (extension == "docx") {
+        fr = new FileReader();
+        fr.readAsBinaryString(file);
+        fr.onload = (event) => {
+          const content = event.target.result;
+          const zip = new PizZip(content);
+          const doc = new Docxtemplater().loadZip(zip);
+          const text = doc.getFullText();
+          editor.contentDocument.write(text);
+        }
+      }
+      else if (extension == "pdf") {
+        fr = new FileReader();
+        fr.readAsDataURL(file);
+        fr.onloadend = (event) => {
+          convertDataURIToBinary(event.target.result);
+        }
+      }
+    }
+
+    function receivedText() {
+      editor.contentDocument.write(fr.result);
+    }
+  }
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/1.10.100/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.worker.entry.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/1.10.100/pdf.worker.min.js"></script>
+
+<script>
+  var BASE64_MARKER = ';base64,';
+  function convertDataURIToBinary(dataURI) {
+    var base64Index = dataURI.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
+    var base64 = dataURI.substring(base64Index);
+    var raw = window.atob(base64);
+    var rawLength = raw.length;
+    var array = new Uint8Array(new ArrayBuffer(rawLength));
+
+    for (var i = 0; i < rawLength; i++) {
+      array[i] = raw.charCodeAt(i);
+    }
+    pdfAsArray(array)
+  }
+
+  function getPageText(pageNum, PDFDocumentInstance) {
+    // Return a Promise that is solved once the text of the page is retrieven
+    return new Promise(function (resolve, reject) {
+      PDFDocumentInstance.getPage(pageNum).then(function (pdfPage) {
+        // The main trick to obtain the text of the PDF page, use the getTextContent method
+        pdfPage.getTextContent().then(function (textContent) {
+          var textItems = textContent.items;
+          var finalString = "";
+
+          // Concatenate the string of the item to the final string
+          for (var i = 0; i < textItems.length; i++) {
+            var item = textItems[i];
+            if (item.str == " ") {
+              finalString += "</br>para</br>"
+            }
+            else { finalString += item.str + ""; }
+
+          }
+
+          // Solve promise with the text retrieven from the page
+          resolve(finalString);
+        });
+      });
+    });
+  }
+
+  function pdfAsArray(pdfAsArray) {
+
+    PDFJS.getDocument(pdfAsArray).then(function (pdf) {
+
+      var pdfDocument = pdf;
+      // Create an array that will contain our promises
+      var pagesPromises = [];
+
+      for (var i = 0; i < pdf.pdfInfo.numPages; i++) {
+        // Required to prevent that i is always the total of pages
+        (function (pageNumber) {
+          // Store the promise of getPageText that returns the text of a page
+          pagesPromises.push(getPageText(pageNumber, pdfDocument));
+        })(i + 1);
+      }
+
+      // Execute all the promises
+      Promise.all(pagesPromises).then(function (pagesText) {
+
+        // Display text of all the pages in the console
+        // e.g ["Text content page 1", "Text content page 2", "Text content page 3" ... ]
+        console.log(pagesText); // representing every single page of PDF Document by array indexing
+        console.log(pagesText.length);
+        var outputStr = "";
+        for (var pageNum = 0; pageNum < pagesText.length; pageNum++) {
+          console.log(pagesText[pageNum]);
+          outputStr = "";
+          outputStr = "<br/><br/>Page " + (pageNum + 1) + " contents <br/> <br/>";
+
+          editor.contentDocument.write(outputStr + pagesText[pageNum]);
+        }
+      });
+
+    }, function (reason) {
+      // PDF loading error
+      console.error(reason);
+    });
+  }
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+  integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  $(".e-list").slideUp(function () {
+    $(".e-button").removeClass("open");
+  });
+
+  $(".e-button").on("click", function () {
+    if ($(this).hasClass("open")) {
+      $(".e-list").slideUp(function () {
+        $(".e-button").removeClass("open");
+      });
+    } else {
+      $(this).addClass("open");
+      setTimeout(function () {
+        $(".e-list").stop().slideDown();
+      }, 200);
+    }
+  });
+</script>
+
+<script src="./"></script>
+</html>
