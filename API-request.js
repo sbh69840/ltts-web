@@ -9,7 +9,7 @@ function sendJSON(buttonType) {
     var x = document.getElementById("editor1-container");
     var y = x.contentWindow || x.contentDocument.document || x.contentDocument;
     y.document.body.innerHTML = ""
-    let url = "http://34.70.110.199:8080/complete"
+    let url = "https://cors-anywhere.herokuapp.com/http://34.70.110.199:8080/complete"
     var data = sendContext(buttonType, 12)
     // let summaryLength = document.querySelector('input[name="val1"]:checked').value
     
@@ -73,7 +73,7 @@ function sendJSON1(buttonType) {
     var y = x.contentWindow || x.contentDocument.document || x.contentDocument;
     // var y = x.contentDocument
     y.document.body.innerHTML = ""
-    let url = "http://34.70.110.199:8080/complete"
+    let url = "https://cors-anywhere.herokuapp.com/http://34.70.110.199:8080/complete"
 
     // var data = JSON.stringify(sendContext(buttonType, 12))
     var data = sendContext(buttonType, 12)
@@ -124,7 +124,7 @@ function sendZeroShot() {
     var y = x.contentWindow || x.contentDocument.document || x.contentDocument;
     // var y = x.contentDocument
     y.document.body.innerHTML = ""
-    let url = "http://34.70.110.199:8080/complete"
+    let url = "https://cors-anywhere.herokuapp.com/http://34.70.110.199:8080/complete"
     // var data = JSON.stringify(sendContext(buttonType, 12))
     let editor = document.getElementById("editor-container")
     editorArray = editor.contentWindow.document.body.innerText
